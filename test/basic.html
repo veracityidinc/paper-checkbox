@@ -14,11 +14,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <title>paper-checkbox basic tests</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-  <script src="../../web-component-tester/browser.js"></script>
-  <script src="../../iron-test-helpers/mock-interactions.js"></script>
-
-  <link rel="import" href="../paper-checkbox.html">
+  <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <script src="../node_modules/wct-browser-legacy/browser.js"></script>
 </head>
 <body>
   <custom-style>
@@ -142,7 +139,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </template>
   </test-fixture>
 
-  <script>
+  <script type="module">
+    import '@polymer/iron-test-helpers/mock-interactions.js';
+    import '../paper-checkbox.js';
+    import {afterNextRender} from '@polymer/polymer/lib/utils/render-status.js';
+    import {a11ySuite} from 'wct-browser-legacy/a11ySuite.js';
     function afterNextRenderAll(elements, callback) {
       var renderedCount = 0;
 
@@ -154,7 +155,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       elements.forEach(function(element) {
-        Polymer.RenderStatus.afterNextRender(element, elementRendered);
+        afterNextRender(element, elementRendered);
       });
     }
 
